@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adhara Professional · Landing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700;800;900&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #FDFAF5;
+      --dark: #1A1208;
+      --gold: #C9A84C;
+      --gold-dark: #A87830;
+      --gold-light: #E2C070;
+      --text: #1A1208;
+      --text-2: #5C4A2A;
+      --accent: #52A870;
+    }
+
+    * { font-family: 'Rubik', sans-serif; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { background: var(--bg); color: var(--text); }
+
+    /* PROGRESS BAR */
+    #pbar {
+      position: fixed; top: 0; left: 0; height: 2px; z-index: 50;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+      background-size: 200%;
+      animation: grad-travel 2s linear infinite;
+      width: 0%;
+    }
+
+    /* GLOW LAYER - GOLDEN GLOW EFFECT */
+    .glow-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 20%, #FFF991 0%, transparent 65%);
+      opacity: 0.4;
+      mix-blend-mode: multiply;
+    }
+
+    /* CURSOR */
+    .cursor-dot {
+      position: fixed; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--gold); pointer-events: none; z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+
+    .cursor-ring {
+      position: fixed; width: 30px; height: 30px; border-radius: 50%;
+      border: 1.5px solid rgba(201,168,76,0.55); pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%);
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 2rem; height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(253,250,245,0); backdrop-filter: blur(0);
+      border-bottom: 1px solid transparent;
+      transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    nav.scrolled {
+      background: rgba(253,250,245,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.18);
+    }
+
+    /* BUTTONS */
+    @keyframes pulse-gold {
+      0%, 100% { box-shadow: 0 4px 18px rgba(201,168,76,0.22); }
+      50% { box-shadow: 0 8px 36px rgba(201,168,76,0.45), 0 0 0 5px rgba(201,168,76,0.07); }
+    }
+
+    @keyframes pulse-dark {
+      0%, 100% { box-shadow: 0 4px 18px rgba(26,18,8,0.18); }
+      50% { box-shadow: 0 8px 36px rgba(26,18,8,0.38), 0 0 0 5px rgba(26,18,8,0.05); }
+    }
+
+    @keyframes grad-travel {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Button Component - Adhara Style */
+    .button-adhara {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 24px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(201, 168, 76, 0.2);
+    }
+    .button-adhara:hover {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, #9a6b28 100%);
+      box-shadow: 0 8px 20px rgba(201, 168, 76, 0.35);
+      transform: translateY(-2px);
+    }
+    .button-adhara:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(201, 168, 76, 0.2);
+    }
+    .button-adhara:focus-visible {
+      outline: none;
+      ring: 2px;
+      ring-color: var(--gold);
+      ring-offset: 2px;
+    }
+    .button-adhara:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: white; font-weight: 700; font-size: 14px;
+      padding: 13px 28px; border-radius: 50px; border: none;
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+      animation: pulse-gold 3s ease-in-out infinite;
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-3px) scale(1.02);
+      animation: none;
+      box-shadow: 0 16px 44px rgba(201,168,76,0.38) !important;
+    }
+
+    .btn-dark {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--dark); color: white; font-weight: 700; font-size: 14px;
+      padding: 13px 28px; border-radius: 50px; border: none;
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+      animation: pulse-dark 3.5s ease-in-out infinite;
+    }
+
+    .btn-dark:hover {
+      transform: translateY(-3px);
+      animation: none;
+      box-shadow: 0 16px 44px rgba(26,18,8,0.32) !important;
+    }
+
+    /* CALCULADORA */
+    .calc-card {
+      background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 12px; padding: 24px;
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .calc-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(201,168,76,0.15);
+    }
+
+    .calc-card.star {
+      background: linear-gradient(135deg, rgba(201,168,76,0.09) 0%, rgba(201,168,76,0.03) 100%);
+      border-color: rgba(201,168,76,0.22);
+    }
+
+    input[type="range"] {
+      width: 100%; height: 8px; border-radius: 5px;
+      background: linear-gradient(to right, rgba(201,168,76,0.12), var(--gold), rgba(201,168,76,0.12));
+      outline: none; -webkit-appearance: none;
+      margin: 1rem 0;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      cursor: pointer; border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--gold), 0 3px 10px rgba(201,168,76,0.38);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+      box-shadow: 0 0 0 2px var(--gold), 0 7px 22px rgba(201,168,76,0.48);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      cursor: pointer; border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--gold), 0 3px 10px rgba(201,168,76,0.38);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    /* ACCORDION */
+    .faq-item {
+      border-bottom: 1px solid rgba(201,168,76,0.18);
+    }
+
+    .faq-item:first-child {
+      border-top: 1px solid rgba(201,168,76,0.18);
+    }
+
+    .faq-question {
+      padding: 19px 0; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 14px; transition: color 0.2s;
+      font-weight: 600; font-size: 15px;
+    }
+
+    .faq-question:hover {
+      color: var(--gold-dark);
+    }
+
+    .faq-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: #F7F1E8; border: 1px solid rgba(201,168,76,0.18);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-dark); font-size: 17px;
+      flex-shrink: 0; transition: transform 0.35s, background 0.25s;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      background: rgba(201,168,76,0.12);
+    }
+
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1), padding 0.4s;
+      font-size: 15px; color: var(--text-2); line-height: 1.8;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px; padding-bottom: 18px;
+    }
+
+    /* MARQUEE RIBBON */
+    .marquee-wrapper {
+      background: var(--dark);
+      overflow: hidden;
+      padding: 12px 0;
+      margin: 20px 0;
+    }
+
+    .marquee-content {
+      display: flex;
+      gap: 60px;
+      animation: scroll-left 15s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      font-family: 'Rubik Mono One', monospace;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 400;
+      padding: 0 30px;
+    }
+
+    .marquee-item.gold {
+      color: var(--gold);
+    }
+
+    .marquee-item.white {
+      color: white;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* GOLDEN TEXT - Gradient effect like button */
+    .gold-glow {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+    }
+
+    /* STICKY BUTTON */
+    .sticky-contact {
+      position: fixed;
+      bottom: 30px;
+      right: 20px;
+      z-index: 100;
+      display: none;
+    }
+    .sticky-contact.show {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: slideUp 0.5s ease-out;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .sticky-btn {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      min-width: 160px;
+      padding: 16px 24px !important;
+      text-align: center !important;
+    }
+    @media (max-width: 480px) {
+      .sticky-btn {
+        padding: 18px 28px !important;
+        font-size: 13px !important;
+        min-width: 180px;
+        gap: 10px;
+      }
+    }
+    .sticky-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(201,168,76,0.45);
+    }
+    .sticky-subtitle {
+      font-size: 11px;
+      font-weight: 400;
+      opacity: 0.9;
+      animation: blink 2s ease-in-out infinite;
+      line-height: 1.3;
+    }
+    @media (max-width: 480px) {
+      .sticky-subtitle {
+        font-size: 10px;
+        line-height: 1.4;
+      }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    @media (max-width: 768px) {
+      .sticky-contact {
+        left: 50%;
+        right: auto;
+        bottom: 20px;
+        transform: translateX(-50%);
+      }
+    }
+    @media (max-width: 480px) {
+      .sticky-contact {
+        bottom: 15px;
+      }
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Stagger Animation */
+    @keyframes staggerFadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: staggerFadeInUp 0.6s ease-out;
+    }
+
+    .hero-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      animation: staggerFadeInUp 0.6s ease-out;
+    }
+
+    .hero-button:nth-child(1) { animation-delay: 0.1s; }
+    .hero-button:nth-child(2) { animation-delay: 0.3s; }
+    .hero-button:nth-child(3) { animation-delay: 0.5s; }
+
+    .hero-button-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(201, 168, 76, 0.25);
+    }
+
+    .hero-button-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.35);
+    }
+
+    .hero-button-secondary {
+      background: white;
+      color: var(--dark);
+      border: 2px solid var(--gold);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero-button-secondary:hover {
+      background: var(--gold);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.25);
+    }
+
+    .hero-button-dark {
+      background: var(--dark);
+      color: white;
+      box-shadow: 0 4px 15px rgba(26, 18, 8, 0.25);
+    }
+
+    .hero-button-dark:hover {
+      background: #2a1f10;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26, 18, 8, 0.35);
+    }
+
+    @media (max-width: 768px) {
+      .hero-buttons {
+        gap: 10px;
+      }
+      .hero-button {
+        padding: 11px 20px;
+        font-size: 13px;
+      }
+    }
+
+    section { animation: fadeInUp 0.8s ease-out; }
+  </style>
+</head>
+<body>
+  <div class="glow-layer"></div>
+  <div id="pbar"></div>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <!-- NAVBAR -->
+  <nav class="bg-white/0">
+    <img src="/assets/logo.png" alt="Adhara Professional" style="height: 50px; object-fit: contain;">
+    <div class="hidden md:flex gap-6 items-center">
+      <button class="btn-gold" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Calcular ROI</button>
+      <a href="https://wa.me/56949238584" class="btn-dark">Hablar con Soporte</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="min-h-screen flex items-center px-4 md:px-8 py-20 pt-24 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(26,18,8,0.75) 0%, rgba(26,18,8,0.5) 50%, rgba(26,18,8,0.7) 100%), url('/assets/product.png') right center/60% auto no-repeat; background-attachment: fixed;">
+    <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(26,18,8,0.9) 0%, rgba(26,18,8,0.7) 40%, transparent 70%);"></div>
+
+    <div class="max-w-6xl mx-auto w-full relative z-10">
+      <div class="max-w-2xl">
+        <div class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: var(--gold);">
+          El alisado que tus clientas aspiracionalmente buscan
+        </div>
+        <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6" style="color: white;">
+          Sé el salón<br><span class="gold-glow">que todas</span><br>recomiendan<br><span class="gold-glow" style="font-style: italic;">Sin formol. Sin riesgo.</span>
+        </h1>
+        <p class="text-lg leading-relaxed mb-8" style="color: rgba(255,255,255,0.9); max-width: 600px;">
+          Adhara es el alisado premium, limpio y efectivo que deja brillo 3+ meses SIN DAÑO. Tus clientas regresan 4 veces al año. Tú ganas $90K+ por servicio.
+        </p>
+        <div class="hero-buttons" style="margin-top: 24px;">
+          <button class="hero-button hero-button-primary" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">
+            Calcular rentabilidad
+            <span style="font-size: 16px;">→</span>
+          </button>
+          <a href="https://wa.me/56949238584" class="hero-button hero-button-secondary">
+            Hablar con profesional
+          </a>
+          <a href="https://somosadhara.cl" class="hero-button hero-button-dark">
+            Comprar inmediata
+            <span style="font-size: 16px;">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE RIBBON -->
+  <div class="marquee-wrapper">
+    <div class="marquee-content">
+      <span class="marquee-item gold">• Premio DBS Belleza 2024</span>
+      <span class="marquee-item white">• Libre de Formol</span>
+      <span class="marquee-item gold">• Libre de Ácido Glioxílico</span>
+      <span class="marquee-item white">• Sin Testeo Animal</span>
+      <span class="marquee-item gold">• Registro ISP 3135C-1/23</span>
+      <span class="marquee-item white">• 25.350+ Tratamientos</span>
+      <span class="marquee-item gold">• 1.030+ Reseñas Verificadas</span>
+      <span class="marquee-item white">• 6+ Años Pioneros</span>
+
+      <!-- Repeat for continuous scroll -->
+      <span class="marquee-item gold">• Premio DBS Belleza 2024</span>
+      <span class="marquee-item white">• Libre de Formol</span>
+      <span class="marquee-item gold">• Libre de Ácido Glioxílico</span>
+      <span class="marquee-item white">• Sin Testeo Animal</span>
+      <span class="marquee-item gold">• Registro ISP 3135C-1/23</span>
+      <span class="marquee-item white">• 25.350+ Tratamientos</span>
+      <span class="marquee-item gold">• 1.030+ Reseñas Verificadas</span>
+      <span class="marquee-item white">• 6+ Años Pioneros</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="py-16 px-4 md:px-8" style="background: linear-gradient(to bottom, var(--bg), white);">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-4xl md:text-5xl font-black mb-2" id="stat1" style="color: var(--gold);">0</div>
+          <div class="text-sm font-semibold text-gray-600">Tratamientos Aplicados</div>
+          <div class="text-xs text-gray-500 mt-1">En salones de todo Chile</div>
+        </div>
+        <div>
+          <div class="text-4xl md:text-5xl font-black mb-2" id="stat2" style="color: var(--gold);">0</div>
+          <div class="text-sm font-semibold text-gray-600">Reseñas Verificadas</div>
+          <div class="text-xs text-gray-500 mt-1">Reales, sin filtros</div>
+        </div>
+        <div>
+          <div class="text-4xl md:text-5xl font-black mb-2" id="stat3" style="color: var(--gold);">0</div>
+          <div class="text-sm font-semibold text-gray-600">Años de Trayectoria</div>
+          <div class="text-xs text-gray-500 mt-1">Pioneros sin formol en Chile</div>
+        </div>
+        <div>
+          <div class="text-4xl md:text-5xl font-black mb-2" id="stat4" style="color: var(--gold);">0</div>
+          <div class="text-sm font-semibold text-gray-600">Alisados por Litro</div>
+          <div class="text-xs text-gray-500 mt-1">ROI calculable en 2 clientes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARATIVA -->
+  <section class="py-20 px-4 md:px-8 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-black text-center mb-4" style="color: var(--dark);">Con formol pierdes dinero (aunque no lo ves)</h2>
+      <p class="text-center text-lg text-gray-600 mb-12 max-w-2xl mx-auto">Cada cliente que no regresa es dinero que nunca ganas.</p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr style="border-bottom: 2px solid rgba(201,168,76,0.18);">
+              <th class="text-left py-4 px-4 font-black" style="color: var(--dark);">Aspecto</th>
+              <th class="text-left py-4 px-4 font-black" style="color: var(--dark);">FORMOL</th>
+              <th class="text-left py-4 px-4 font-black" style="color: var(--dark);">ADHARA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid rgba(201,168,76,0.18);">
+              <td class="py-4 px-4 font-semibold">Daño capilar</td>
+              <td class="py-4 px-4">Sí, permanente</td>
+              <td class="py-4 px-4 font-bold" style="color: var(--gold);">No, repara</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(201,168,76,0.18);">
+              <td class="py-4 px-4 font-semibold">Servicios/año</td>
+              <td class="py-4 px-4">2 máximo</td>
+              <td class="py-4 px-4 font-bold" style="color: var(--gold);">4 posibles</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(201,168,76,0.18);">
+              <td class="py-4 px-4 font-semibold">Margen/año</td>
+              <td class="py-4 px-4">$180K</td>
+              <td class="py-4 px-4 font-bold" style="color: var(--gold);">$360K</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-12 p-6 rounded-lg text-center" style="background-color: rgba(201,168,76,0.12);">
+        <div class="text-3xl font-black" style="color: var(--gold);">+$180K/año</div>
+        <div class="text-sm text-gray-600">por cliente en diferencia de margen</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULADORA PREMIUM -->
+  <section id="calculator" class="py-20 px-4 md:px-8" style="background: linear-gradient(to bottom, var(--bg), white);">
+    <div class="max-w-2xl mx-auto">
+      <!-- Card Principal -->
+      <div style="background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(255,255,255,0.5) 100%); border: 2px solid var(--gold); border-radius: 24px; padding: 40px 32px; position: relative; overflow: hidden;">
+
+        <!-- Top accent line -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--gold), transparent);"></div>
+
+        <!-- Decorative circle top left -->
+        <div style="position: absolute; top: -30px; left: -30px; width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(201,168,76,0.15);"></div>
+
+        <!-- Header -->
+        <div class="mb-8">
+          <div class="text-xs font-bold tracking-widest uppercase mb-3" style="color: var(--gold); letter-spacing: 2px;">Tu precio por alisado</div>
+          <div style="display: flex; align-items: baseline; gap: 8px;">
+            <span style="font-size: 14px; color: var(--gold);">$</span>
+            <div class="text-5xl md:text-6xl font-black" id="priceDisplay" style="color: var(--gold);">90.000</div>
+          </div>
+          <div class="text-xs mt-2" style="color: var(--text-2);">Desliza para ajustar</div>
+        </div>
+
+        <!-- Slider with custom styling -->
+        <div class="mb-8">
+          <input type="range" id="priceSlider" min="60000" max="150000" step="1000" value="90000"
+                 onchange="updateCalculator()" oninput="updateCalculator()"
+                 style="width: 100%; height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--gold), var(--gold)); outline: none; -webkit-appearance: none;">
+          <style>
+            #priceSlider::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              appearance: none;
+              width: 28px;
+              height: 28px;
+              border-radius: 50%;
+              background: white;
+              border: 4px solid var(--gold);
+              cursor: pointer;
+              box-shadow: 0 4px 12px rgba(201,168,76,0.35);
+            }
+            #priceSlider::-moz-range-thumb {
+              width: 28px;
+              height: 28px;
+              border-radius: 50%;
+              background: white;
+              border: 4px solid var(--gold);
+              cursor: pointer;
+              box-shadow: 0 4px 12px rgba(201,168,76,0.35);
+            }
+          </style>
+          <div style="display: flex; justify-content: space-between; margin-top: 8px; font-family: 'Rubik Mono One'; font-size: 10px; color: var(--muted); letter-spacing: 1px;">
+            <span>$60.000</span>
+            <span>$150.000</span>
+          </div>
+        </div>
+
+        <!-- Grid 2x2 de métricas -->
+        <div class="grid grid-cols-2 gap-4 mb-8">
+          <!-- Costo por servicio -->
+          <div style="background: white; border-radius: 16px; padding: 20px; border: 1px solid rgba(201,168,76,0.12);">
+            <div class="text-xs font-bold tracking-widest uppercase mb-2" style="color: var(--gold); letter-spacing: 1px;">Costo por servicio</div>
+            <div class="text-2xl font-black mb-2" style="color: var(--dark);">$6.825</div>
+            <div class="text-xs" style="color: var(--muted);">Litro · 20 alisados</div>
+          </div>
+
+          <!-- Tu ganancia -->
+          <div style="background: white; border-radius: 16px; padding: 20px; border: 1px solid rgba(201,168,76,0.12);">
+            <div class="text-xs font-bold tracking-widest uppercase mb-2" style="color: var(--gold); letter-spacing: 1px;">Tu ganancia</div>
+            <div class="text-2xl font-black mb-2" id="gainPerService" style="color: var(--gold);">$83.175</div>
+            <div class="text-xs" style="color: var(--muted);">Por cada servicio</div>
+          </div>
+
+          <!-- Margen neto -->
+          <div style="background: white; border-radius: 16px; padding: 20px; border: 1px solid rgba(201,168,76,0.12);">
+            <div class="text-xs font-bold tracking-widest uppercase mb-2" style="color: var(--text); letter-spacing: 1px;">Margen neto</div>
+            <div class="text-2xl font-black mb-2" id="margin" style="color: var(--dark);">92%</div>
+            <div class="text-xs" style="color: var(--muted);">Sobre precio cobrado</div>
+          </div>
+
+          <!-- Revenue por litro -->
+          <div style="background: white; border-radius: 16px; padding: 20px; border: 1px solid rgba(201,168,76,0.12);">
+            <div class="text-xs font-bold tracking-widest uppercase mb-2" style="color: var(--gold); letter-spacing: 1px;">Revenue por litro</div>
+            <div class="text-2xl font-black mb-2" id="revenuePerLiter" style="color: var(--gold);">$1.800.000</div>
+            <div class="text-xs" style="color: var(--muted);">20 servicios × precio</div>
+          </div>
+        </div>
+
+        <!-- Alert/Banner -->
+        <div style="background: rgba(201,168,76,0.08); border: 1px solid rgba(82,168,112,0.2); border-radius: 12px; padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
+          <span style="color: var(--gold); font-size: 18px;">✓</span>
+          <span style="font-size: 14px; color: var(--text);">Con <strong>2 clientes</strong> recuperas la inversión del litro.</span>
+        </div>
+
+        <!-- Botones -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <a href="https://wa.me/56949238584" style="background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: white; border: none; border-radius: 50px; padding: 14px 24px; font-weight: 700; font-size: 14px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            Quiero este margen →
+          </a>
+          <a href="https://somosadhara.cl" style="background: var(--dark); color: white; border: none; border-radius: 50px; padding: 14px 24px; font-weight: 700; font-size: 14px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none;">
+            Comprar ahora
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARATIVA VISUAL -->
+  <section class="py-20 px-4 md:px-8" style="background: linear-gradient(to bottom, var(--dark) 0%, var(--dark) 50%, white 100%); color: white;">
+    <div class="max-w-5xl mx-auto">
+      <!-- Header -->
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-5xl font-black leading-tight mb-6" style="color: white;">
+          El único alisado que no solo<br>deja el cabello <span class="gold-glow" style="font-style: italic;">liso</span><br>— lo deja <span class="gold-glow" style="font-style: italic; font-size: 1.1em;">mejor</span>
+        </h2>
+        <p class="text-base md:text-lg leading-relaxed max-w-3xl mx-auto opacity-90">
+          El formol alisa. Pero con cada aplicación el cabello pierde vitalidad. Adhara Golden Glow hace lo opuesto: <strong style="color: var(--gold);">el brillo y la salud capilar mejoran con cada uso.</strong>
+        </p>
+      </div>
+
+      <!-- Grid Comparativo -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <!-- FORMOL -->
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(208,80,80,0.18); border-radius: 16px; padding: 28px; overflow: hidden;">
+          <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.045);">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: rgba(208,80,80,0.5);"></div>
+            <h3 class="text-lg font-black" style="color: rgba(208,80,80,0.8); margin: 0;">Alisado con Formol</h3>
+          </div>
+          <div class="space-y-3">
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(208,80,80,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: #d07070; font-weight: 700; margin-top: 2px;">✕</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Genera vapores tóxicos</strong> al activarse — Riesgo directo para estilista y clientas</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(208,80,80,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: #d07070; font-weight: 700; margin-top: 2px;">✕</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Opaca y fragiliza</strong> el cabello con el tiempo — las clientas lo notan a los 2-3 meses</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(208,80,80,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: #d07070; font-weight: 700; margin-top: 2px;">✕</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Barrido de color significativo</strong> — riesgo en clientas teñidas o con mechas</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(208,80,80,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: #d07070; font-weight: 700; margin-top: 2px;">✕</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Clientas satisfechas pero rara vez</strong> recomiendan el proceso</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(208,80,80,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: #d07070; font-weight: 700; margin-top: 2px;">✕</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Sin diferenciación</strong> — el mismo producto que usa 90% de salones</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADHARA -->
+        <div style="background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(201,168,76,0.02) 100%); border: 1px solid rgba(201,168,76,0.18); border-radius: 16px; padding: 28px; overflow: hidden;">
+          <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(201,168,76,0.18);">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent);"></div>
+            <h3 class="text-lg font-black" style="color: var(--gold); margin: 0;">Sin nube tóxica - sin formol, sin ácido glioxílico</h3>
+          </div>
+          <div class="space-y-3">
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(201,168,76,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: var(--gold); font-weight: 700; margin-top: 2px;">✓</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Sin nube tóxica</strong> — sin formol, sin ácido glioxílico. Ambiente de trabajo limpio</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(201,168,76,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: var(--gold); font-weight: 700; margin-top: 2px;">✓</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Mejora el brillo y la salud capilar</strong> — el cabello se ve mejor con cada lavado</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(201,168,76,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: var(--gold); font-weight: 700; margin-top: 2px;">✓</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Barrido mínimo ¼ tone</strong> — compatible con color y mechas sin riesgo</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(201,168,76,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: var(--gold); font-weight: 700; margin-top: 2px;">✓</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Clientas que cuentan al resultado</strong> a sus amigas espontáneamente</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 11px;">
+              <div style="width: 19px; height: 19px; border-radius: 50%; background: rgba(201,168,76,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 10px; color: var(--gold); font-weight: 700; margin-top: 2px;">✓</div>
+              <div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5;"><strong style="color: rgba(255,255,255,0.9);">Premio DBS 2024</strong> — argumento para cobrar más sin ninguna resistencia</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TÉCNICA ADHARA - PASOS -->
+  <section class="py-20 px-4 md:px-8 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-16">
+        <div>
+          <div class="text-xs font-bold tracking-widest uppercase mb-3" style="color: var(--gold); letter-spacing: 2px;">★ Técnica Adhara</div>
+          <h2 class="text-4xl md:text-5xl font-black leading-tight" style="color: var(--dark);">
+            Más <span class="gold-glow">simple</span>.<br>30% más <span class="gold-glow" style="font-style: italic;">rápido</span>.
+          </h2>
+          <p class="text-base text-gray-600 mt-4 max-w-lg">
+            4 pasos. Sin activación química bajo calor.
+          </p>
+        </div>
+        <div style="background: rgba(201,168,76,0.08); border: 1px solid rgba(82,168,112,0.2); border-radius: 50px; padding: 10px 18px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--gold);">
+          <span>✓</span>
+          <span>30% más rápido</span>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="relative">
+        <!-- Line -->
+        <div style="position: absolute; top: 30px; left: 5%; right: 5%; height: 2px; background: linear-gradient(to right, transparent, var(--border) 20%, var(--border) 80%, transparent); z-index: 0;"></div>
+
+        <!-- Steps Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8" style="position: relative; z-index: 1;">
+          <!-- Paso 1 -->
+          <div class="flex flex-col items-center text-center">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--bg-warm) 0%, rgba(247,241,232,0.5) 100%); border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; z-index: 2;">
+              <span class="text-2xl font-black" style="color: var(--gold);">01</span>
+            </div>
+            <h3 class="text-lg font-black mb-2" style="color: var(--dark);">Lava</h3>
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+              Shampoo del kit. Regulación de pH.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; justify-center; gap: 6px;">
+              <span style="background: rgba(201,168,76,0.08); color: var(--gold); padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">PH REGULADO</span>
+            </div>
+          </div>
+
+          <!-- Paso 2 -->
+          <div class="flex flex-col items-center text-center">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--bg-warm) 0%, rgba(247,241,232,0.5) 100%); border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; z-index: 2;">
+              <span class="text-2xl font-black" style="color: var(--gold);">02</span>
+            </div>
+            <h3 class="text-lg font-black mb-2" style="color: var(--dark);">Aplica</h3>
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+              Mechón a mechón. Cabello mojado.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; justify-center; gap: 6px;">
+              <span style="background: rgba(201,168,76,0.08); color: var(--gold); padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">CABELLO MOJADO</span>
+            </div>
+          </div>
+
+          <!-- Paso 3 -->
+          <div class="flex flex-col items-center text-center">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--bg-warm) 0%, rgba(247,241,232,0.5) 100%); border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; z-index: 2;">
+              <span class="text-2xl font-black" style="color: var(--gold);">03</span>
+            </div>
+            <h3 class="text-lg font-black mb-2" style="color: var(--dark);">Retira</h3>
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+              Enjuaga. Mascarilla 3 min.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; justify-center; gap: 6px;">
+              <span style="background: rgba(201,168,76,0.08); color: var(--gold); padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">SELLADO</span>
+              <span style="background: rgba(201,168,76,0.08); color: var(--gold); padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">3 MIN</span>
+            </div>
+          </div>
+
+          <!-- Paso 4 -->
+          <div class="flex flex-col items-center text-center">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--bg-warm) 0%, rgba(247,241,232,0.5) 100%); border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; position: relative; z-index: 2;">
+              <span class="text-2xl font-black" style="color: var(--gold);">04</span>
+            </div>
+            <h3 class="text-lg font-black mb-2" style="color: var(--dark);">Seca</h3>
+            <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+              Secador 100%. Plancha 10-15x.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; justify-center; gap: 6px;">
+              <span style="background: rgba(201,168,76,0.08); color: var(--gold); padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">SIN RIESGO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS CARRUSEL -->
+  <section class="py-20 px-4 md:px-8 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <!-- Título Principal -->
+      <div class="text-center mb-20">
+        <h2 class="text-4xl md:text-6xl font-black leading-tight mb-12" style="color: var(--dark);">
+          Tu salón <span style="font-weight: 400; font-style: italic; color: var(--text-2);">no es solo</span> <strong>negocio.</strong><br>
+          Es donde tus clientas <span class="gold-glow" style="font-style: italic; font-size: 1.15em;">AMAN</span> su cabello.<br>
+          <span style="color: var(--gold); font-style: italic; font-size: 0.9em; font-weight: 700;">Elige.</span>
+        </h2>
+      </div>
+
+      <!-- Testimonios Header -->
+      <div class="text-center mb-16">
+        <div class="text-xs font-bold tracking-widest uppercase mb-4" style="color: var(--gold); letter-spacing: 2px;">⭐⭐⭐⭐⭐ 5 ESTRELLAS EN LOOX</div>
+        <h3 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--dark);">Lo que dicen nuestras estilistas</h3>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">+1.030 reseñas verificadas de estilistas profesionales que confían en Adhara</p>
+      </div>
+
+      <!-- Carrusel -->
+      <style>
+        .testimonial-carousel { position: relative; max-width: 900px; margin: 0 auto; }
+        .testimonial-card {
+          background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, rgba(255,255,255,0.5) 100%);
+          border: 2px solid rgba(201,168,76,0.2);
+          border-radius: 20px;
+          padding: 40px;
+          text-align: center;
+          min-height: 350px;
+          display: none;
+          animation: fadeInTestimonial 0.5s ease-in-out;
+        }
+        .testimonial-card.active { display: flex; flex-direction: column; justify-content: center; }
+        @keyframes fadeInTestimonial {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .testimonial-stars { font-size: 24px; letter-spacing: 4px; margin-bottom: 16px; color: var(--gold); }
+        .testimonial-text {
+          font-size: 18px;
+          font-style: italic;
+          line-height: 1.8;
+          margin-bottom: 24px;
+          color: var(--text);
+          font-weight: 500;
+        }
+        .testimonial-author {
+          font-weight: 700;
+          color: var(--gold);
+          font-size: 16px;
+          margin-bottom: 4px;
+        }
+        .testimonial-role {
+          font-size: 13px;
+          color: var(--text-2);
+        }
+        .carousel-controls {
+          display: flex;
+          gap: 12px;
+          justify-content: center;
+          margin-top: 32px;
+        }
+        .carousel-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          border: 2px solid var(--gold);
+          background: white;
+          color: var(--gold);
+          cursor: pointer;
+          font-weight: 700;
+          font-size: 18px;
+          transition: all 0.3s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .carousel-btn:hover {
+          background: var(--gold);
+          color: white;
+          transform: scale(1.1);
+        }
+        .carousel-dots {
+          display: flex;
+          gap: 8px;
+          justify-content: center;
+          margin-top: 20px;
+        }
+        .dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: rgba(201,168,76,0.2);
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+        .dot.active {
+          background: var(--gold);
+          width: 28px;
+          border-radius: 5px;
+        }
+      </style>
+
+      <div class="testimonial-carousel">
+        <!-- Testimonios -->
+        <div class="testimonial-card active" data-index="0">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Estoy desde marzo del año pasado trabajando con Adhara y me encanta!! Mis clientas están felices con sus resultados!"</div>
+          <div class="testimonial-author">Leonor Rojas Castillo</div>
+          <div class="testimonial-role">Estilista Profesional, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="1">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Adhara llegó a cambiar la vida de los cabellos de mis amadas clientas, por eso sé que no me equivoqué en elegir a Adhara Professional como Marca Oficial de mi Academia 🫶"</div>
+          <div class="testimonial-author">Ana María Zenteno Salgado</div>
+          <div class="testimonial-role">Directora de Academia, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="2">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Este producto simplemente es espectacular, mis clientas lo amaron, es fácil de aplicar y los resultados son geniales ♥️"</div>
+          <div class="testimonial-author">Gladys Marchant Cadiz</div>
+          <div class="testimonial-role">Estilista Profesional, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="3">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Lo utilizo para mi salón, la mejor opción. Saludable y un liso natural maravilloso."</div>
+          <div class="testimonial-author">Camila Cancino</div>
+          <div class="testimonial-role">Dueña de Salón, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="4">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Hermoso resultado para una clienta de cabello crespo! Es un producto profesional y 100% recomendable"</div>
+          <div class="testimonial-author">Katherin Alicia Loyola Fuentes</div>
+          <div class="testimonial-role">Estilista Profesional, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="5">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Tenía dudas del producto, porque trabajé años otra marca pero me llevé una grata sorpresa. Excelente el resultado"</div>
+          <div class="testimonial-author">Jeannette Bizama</div>
+          <div class="testimonial-role">Estilista Profesional, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="6">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Soy nueva probando este producto de Adhara, pero me encantó. Super bueno, fácil de trabajarlo y muy buen resultado"</div>
+          <div class="testimonial-author">Diomides Márquez</div>
+          <div class="testimonial-role">Estilista Profesional, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="7">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Es un producto muy efectivo, deja el cabello liso, brillante y suave al tacto. Dura 3 meses aproximadamente"</div>
+          <div class="testimonial-author">Berta Novoa</div>
+          <div class="testimonial-role">Estilista Profesional, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="8">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Bastante buena la experiencia, fácil de usar, sin esa nube tóxica que hace tan mal para la salud! Súper recomendable"</div>
+          <div class="testimonial-author">Guiselle Ulloa Fernández</div>
+          <div class="testimonial-role">Estilista Profesional, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="9">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Probé otras marcas pero ninguna como Adhara por su brillo y lo natural que lo deja"</div>
+          <div class="testimonial-author">Romina Diaz</div>
+          <div class="testimonial-role">Estilista Profesional, Chile</div>
+        </div>
+
+        <div class="testimonial-card" data-index="10">
+          <div class="testimonial-stars">★★★★★</div>
+          <div class="testimonial-text">"Excelente producto, sin olor, tampoco humo tóxico. Lo súper recomiendo, muy fácil de aplicar. Un 10/10 mi puntaje"</div>
+          <div class="testimonial-author">Niurka Rivas</div>
+          <div class="testimonial-role">Estilista Profesional, Chile</div>
+        </div>
+
+        <!-- Controles -->
+        <div class="carousel-controls">
+          <button class="carousel-btn" onclick="prevTestimonial()">←</button>
+          <button class="carousel-btn" onclick="nextTestimonial()">→</button>
+        </div>
+
+        <div class="carousel-dots" id="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 px-4 md:px-8 bg-gray-50">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl font-black text-center mb-16" style="color: var(--dark);">Preguntas frecuentes</h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question w-full text-left" onclick="toggleFAQ(this)">
+            <span>¿Dura realmente 3-4 meses?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Sí, si sigues el protocolo correcto (shampoo neutro, mascarilla semanal, protector térmico). El resultado se desvanece GRADUAL, no de repente. Cliente regresa elegida cada 6-8 semanas.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question w-full text-left" onclick="toggleFAQ(this)">
+            <span>¿Funciona en TODO tipo de cabello?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Adhara está pensado para cabello con VOLUMEN Y RIZO (crespo, grueso, ondulado fuerte). En ondulado fino, reduce frizz pero no alisa 100%. En cabello decolorado, testea primero en mechita.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question w-full text-left" onclick="toggleFAQ(this)">
+            <span>¿Mis clientas van a venir 4 veces al año?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Sí. Porque: 1) Sin culpa de daño. 2) Resultado desvanece GRADUAL. 3) Es trending: 65%+ buscan orgánico. Tus clientas dirán: Por fin encontré el salón donde puedo alisar sin culpa.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question w-full text-left" onclick="toggleFAQ(this)">
+            <span>¿Tiene olor tóxico?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">NO. Adhara tiene un AROMA AGRADABLE durante todo el proceso. La diferencia: Formol HUELE A HUMO TÓXICO. Adhara HUELE A AROMA profesional. Una cliente sin ardor ocular es cliente recurrente.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question w-full text-left" onclick="toggleFAQ(this)">
+            <span>¿Cuál es el costo real por servicio?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">Costo por servicio: $9.749 (Kit $194.990 ÷ 20 alisados). Si cobras $100K, tu ganancia es $90.251. Margen: 90%. Revenue por cliente/año: $360K (4 servicios).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- STICKY BUTTON -->
+  <div class="sticky-contact" id="stickyContact">
+    <a href="https://wa.me/56949238584" class="button-adhara sticky-btn">
+      <span style="display: block; text-align: center;">Hablar con Profesional</span>
+      <span class="sticky-subtitle" style="display: block; text-align: center;">90% sigue usando formol, marca la diferencia</span>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t py-8 px-4 md:px-8 text-center text-sm text-gray-600">
+    <p>© 2026 Adhara Professional. Todos los derechos reservados.</p>
+    <p class="mt-2">hola@somosadhara.cl | +56 9 4923 8584</p>
+  </footer>
+
+  <script>
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Sticky Contact Button
+    const stickyContact = document.getElementById('stickyContact');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        stickyContact.classList.add('show');
+      } else {
+        stickyContact.classList.remove('show');
+      }
+    });
+
+    // Progress Bar
+    const pbar = document.getElementById('pbar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      pbar.style.width = scrollPercent + '%';
+    });
+
+    // Custom Cursor
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorRing = document.querySelector('.cursor-ring');
+    document.addEventListener('mousemove', (e) => {
+      cursorDot.style.left = e.clientX + 'px';
+      cursorDot.style.top = e.clientY + 'px';
+      cursorRing.style.left = e.clientX + 'px';
+      cursorRing.style.top = e.clientY + 'px';
+    });
+
+    // Calculator
+    function updateCalculator() {
+      const slider = document.getElementById('priceSlider');
+      const precio = parseInt(slider.value);
+      const costoServicio = 6825;
+      const ganancia = precio - costoServicio;
+      const margenPct = Math.round((ganancia / precio) * 100);
+      const revenuePerLiter = ganancia * 20;
+
+      document.getElementById('priceDisplay').textContent = precio.toLocaleString('es-CL');
+      document.getElementById('gainPerService').textContent = `$${ganancia.toLocaleString('es-CL')}`;
+      document.getElementById('margin').textContent = `${margenPct}%`;
+      document.getElementById('revenuePerLiter').textContent = `$${revenuePerLiter.toLocaleString('es-CL')}`;
+    }
+
+    // FAQ Toggle
+    function toggleFAQ(button) {
+      const item = button.parentElement;
+      item.classList.toggle('open');
+    }
+
+    // Testimonial Carousel
+    let currentTestimonial = 0;
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    const totalTestimonials = testimonialCards.length;
+
+    function createDots() {
+      const dotsContainer = document.getElementById('dots');
+      for (let i = 0; i < totalTestimonials; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.onclick = () => goToTestimonial(i);
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function showTestimonial(index) {
+      testimonialCards.forEach(card => card.classList.remove('active'));
+      const dots = document.querySelectorAll('.dot');
+      dots.forEach(dot => dot.classList.remove('active'));
+
+      testimonialCards[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
+
+    function nextTestimonial() {
+      currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+      showTestimonial(currentTestimonial);
+    }
+
+    function prevTestimonial() {
+      currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+      showTestimonial(currentTestimonial);
+    }
+
+    function goToTestimonial(index) {
+      currentTestimonial = index;
+      showTestimonial(currentTestimonial);
+    }
+
+    createDots();
+
+    // Stats Counter Animation
+    function animateCounter(id, target, duration = 2000) {
+      const element = document.getElementById(id);
+      let current = 0;
+      const increment = target / (duration / 16);
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          element.textContent = target.toLocaleString('es-CL');
+          clearInterval(timer);
+        } else {
+          element.textContent = Math.floor(current).toLocaleString('es-CL');
+        }
+      }, 16);
+    }
+
+    // Trigger stats animation on scroll
+    const statsSection = document.querySelector('section:nth-of-type(2)');
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateCounter('stat1', 25350);
+        animateCounter('stat2', 1030);
+        animateCounter('stat3', 6);
+        animateCounter('stat4', 20);
+        observer.unobserve(statsSection);
+      }
+    }, { threshold: 0.5 });
+    observer.observe(statsSection);
+
+    updateCalculator();
+  </script>
+</body>
+</html>
