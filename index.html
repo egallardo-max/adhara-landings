@@ -440,6 +440,26 @@
       box-shadow: 0 8px 24px rgba(26, 18, 8, 0.35);
     }
 
+    /* VIDEO RESPONSIVE */
+    .hero-video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
     @media (max-width: 768px) {
       .hero-buttons {
         gap: 10px;
@@ -469,10 +489,11 @@
   </nav>
 
   <!-- HERO -->
-  <section class="min-h-screen flex items-center px-4 md:px-8 py-20 pt-24 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(26,18,8,0.75) 0%, rgba(26,18,8,0.5) 50%, rgba(26,18,8,0.7) 100%), url('/assets/product.png') right center/60% auto no-repeat; background-attachment: fixed;">
+  <section class="flex items-center px-4 md:px-8 py-20 pt-24 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(26,18,8,0.75) 0%, rgba(26,18,8,0.5) 50%, rgba(26,18,8,0.7) 100%), url('/assets/product.png') right center/60% auto no-repeat; background-attachment: fixed; min-height: auto; md:min-height: 100vh;">
     <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(26,18,8,0.9) 0%, rgba(26,18,8,0.7) 40%, transparent 70%);"></div>
 
-    <div class="max-w-6xl mx-auto w-full relative z-10">
+    <div class="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <!-- Contenido izquierdo -->
       <div class="max-w-2xl">
         <div class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: var(--gold);">
           El alisado que tus clientas aspiracionalmente buscan
@@ -495,6 +516,17 @@
             Comprar inmediata
             <span style="font-size: 16px;">→</span>
           </a>
+        </div>
+      </div>
+
+      <!-- Video YouTube (Derecha en desktop, Abajo en mobile) -->
+      <div class="w-full">
+        <div class="hero-video-container">
+          <iframe
+            src="https://www.youtube.com/embed/MIUdr2gao24?rel=0&modestbranding=1"
+            allowfullscreen=""
+            loading="lazy">
+          </iframe>
         </div>
       </div>
     </div>
