@@ -441,6 +441,19 @@
     }
 
     /* VIDEO RESPONSIVE */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
     .hero-video-container {
       position: relative;
       width: 100%;
@@ -492,7 +505,7 @@
   <section class="flex items-center px-4 md:px-8 py-20 pt-24 relative overflow-hidden" style="background: linear-gradient(135deg, rgba(26,18,8,0.75) 0%, rgba(26,18,8,0.5) 50%, rgba(26,18,8,0.7) 100%), url('/assets/product.png') right center/60% auto no-repeat; background-attachment: fixed; min-height: auto; md:min-height: 100vh;">
     <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(26,18,8,0.9) 0%, rgba(26,18,8,0.7) 40%, transparent 70%);"></div>
 
-    <div class="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div class="max-w-7xl mx-auto w-full relative z-10 hero-grid">
       <!-- Contenido izquierdo -->
       <div class="max-w-2xl">
         <div class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: var(--gold);">
