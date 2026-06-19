@@ -454,6 +454,30 @@
       }
     }
 
+    /* Mobile Hero Compact */
+    @media (max-width: 768px) {
+      .hero-content {
+        gap: 16px;
+        text-align: center;
+        align-items: center;
+      }
+      .hero-content h1 {
+        font-size: 32px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 12px !important;
+      }
+      .hero-content p {
+        font-size: 14px !important;
+        margin-bottom: 12px !important;
+      }
+      .hero-grid {
+        gap: 16px;
+      }
+      .text-sm {
+        text-align: center !important;
+      }
+    }
+
     .hero-video-container {
       position: relative;
       width: 100%;
@@ -484,6 +508,181 @@
     }
 
     section { animation: fadeInUp 0.8s ease-out; }
+
+    /* MODAL WHATSAPP CATEGORIZATION */
+    .whatsapp-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(26, 18, 8, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      animation: fadeInUp 0.3s ease-out;
+    }
+
+    .whatsapp-modal-overlay.active {
+      display: flex;
+    }
+
+    .whatsapp-modal {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .modal-header h2 {
+      font-size: 24px;
+      color: var(--dark);
+      margin: 0 0 8px 0;
+      font-weight: 800;
+    }
+
+    .modal-header p {
+      color: var(--text-2);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-2);
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .modal-close:hover {
+      color: var(--gold);
+      transform: scale(1.2);
+    }
+
+    .modal-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-option {
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+      text-align: left;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-option:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      transform: translateX(4px);
+    }
+
+    .modal-option-icon {
+      font-size: 20px;
+      min-width: 24px;
+    }
+
+    .modal-option-text {
+      flex: 1;
+    }
+
+    .modal-back {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--gold);
+      cursor: pointer;
+      margin-bottom: 16px;
+      background: none;
+      border: none;
+      padding: 0;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .modal-back:hover {
+      gap: 12px;
+    }
+
+    .modal-back.active {
+      display: flex;
+    }
+
+    .modal-recommendation {
+      display: none;
+      text-align: center;
+      padding: 24px;
+      background: rgba(201,168,76,0.1);
+      border-radius: 12px;
+      margin-top: 16px;
+    }
+
+    .modal-recommendation.active {
+      display: block;
+    }
+
+    .modal-recommendation p {
+      margin: 0 0 16px 0;
+      color: var(--dark);
+      font-size: 14px;
+    }
+
+    .modal-recommendation-btn {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .modal-recommendation-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.35);
+    }
+
+    @media (max-width: 768px) {
+      .whatsapp-modal {
+        padding: 24px;
+      }
+      .modal-header h2 {
+        font-size: 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -497,7 +696,7 @@
     <img src="/assets/logo.png" alt="Adhara Professional" style="height: 50px; object-fit: contain;">
     <div class="hidden md:flex gap-6 items-center">
       <button class="btn-gold" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Calcular ROI</button>
-      <a href="https://wa.me/56949238584" class="btn-dark">Hablar con Soporte</a>
+      <button onclick="openWhatsappModal()" class="btn-dark" style="border: none; cursor: pointer;">Hablar con Soporte</button>
     </div>
   </nav>
 
@@ -507,24 +706,33 @@
 
     <div class="max-w-7xl mx-auto w-full relative z-10 hero-grid">
       <!-- Contenido izquierdo -->
-      <div class="max-w-2xl">
+      <div class="max-w-2xl hero-content" style="display: flex; flex-direction: column; gap: 24px;">
         <div class="text-sm font-semibold tracking-widest uppercase mb-4" style="color: var(--gold);">
-          El alisado que tus clientas aspiracionalmente buscan
+          El alisado por el que vuelven, hasta 4 veces al año, sin daño
         </div>
         <h1 class="text-5xl md:text-6xl font-black leading-tight mb-6" style="color: white;">
-          Sé el salón<br><span class="gold-glow">que todas</span><br>recomiendan<br><span class="gold-glow" style="font-style: italic;">Sin formol. Sin riesgo.</span>
+          Sé el salón que todas recomiendan<br><span class="gold-glow" style="font-style: italic;">Sin formol. Sin riesgo.</span>
         </h1>
-        <p class="text-lg leading-relaxed mb-8" style="color: rgba(255,255,255,0.9); max-width: 600px;">
-          Adhara es el alisado premium, limpio y efectivo que deja brillo 3+ meses SIN DAÑO. Tus clientas regresan 4 veces al año. Tú ganas $90K+ por servicio.
-        </p>
-        <div class="hero-buttons" style="margin-top: 24px;">
+
+        <!-- Video YouTube (Mobile: debajo del título) -->
+        <div class="md:hidden w-full">
+          <div class="hero-video-container">
+            <iframe
+              src="https://www.youtube.com/embed/MIUdr2gao24?rel=0&modestbranding=1"
+              allowfullscreen=""
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="hero-buttons" style="margin-top: 0;">
           <button class="hero-button hero-button-primary" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">
             Calcular rentabilidad
             <span style="font-size: 16px;">→</span>
           </button>
-          <a href="https://wa.me/56949238584" class="hero-button hero-button-secondary">
+          <button onclick="openWhatsappModal()" class="hero-button hero-button-secondary" style="border: none; cursor: pointer; text-decoration: none;">
             Hablar con profesional
-          </a>
+          </button>
           <a href="https://somosadhara.cl" class="hero-button hero-button-dark">
             Comprar inmediata
             <span style="font-size: 16px;">→</span>
@@ -532,8 +740,8 @@
         </div>
       </div>
 
-      <!-- Video YouTube (Derecha en desktop, Abajo en mobile) -->
-      <div class="w-full">
+      <!-- Video YouTube (Desktop: lado derecho) -->
+      <div class="hidden md:block w-full">
         <div class="hero-video-container">
           <iframe
             src="https://www.youtube.com/embed/MIUdr2gao24?rel=0&modestbranding=1"
@@ -733,9 +941,9 @@
 
         <!-- Botones -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-          <a href="https://wa.me/56949238584" style="background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: white; border: none; border-radius: 50px; padding: 14px 24px; font-weight: 700; font-size: 14px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <button onclick="openWhatsappModal()" style="background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: white; border: none; border-radius: 50px; padding: 14px 24px; font-weight: 700; font-size: 14px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
             Quiero este margen →
-          </a>
+          </button>
           <a href="https://somosadhara.cl" style="background: var(--dark); color: white; border: none; border-radius: 50px; padding: 14px 24px; font-weight: 700; font-size: 14px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none;">
             Comprar ahora
           </a>
@@ -1174,12 +1382,74 @@
   </section>
 
 
+  <!-- WHATSAPP CATEGORIZATION MODAL -->
+  <div class="whatsapp-modal-overlay" id="whatsappModal">
+    <div class="whatsapp-modal">
+      <button class="modal-close" onclick="closeWhatsappModal()">✕</button>
+
+      <div id="step1" class="modal-step">
+        <div class="modal-header">
+          <h2>Cuéntame sobre ti</h2>
+          <p>¿Cuál es tu rol?</p>
+        </div>
+        <div class="modal-options">
+          <button class="modal-option" onclick="selectRole('Dueña de salón')">
+            <span class="modal-option-icon">👑</span>
+            <span class="modal-option-text">Dueña de salón</span>
+          </button>
+          <button class="modal-option" onclick="selectRole('Estilista independiente')">
+            <span class="modal-option-icon">💅</span>
+            <span class="modal-option-text">Estilista independiente</span>
+          </button>
+          <button class="modal-option" onclick="selectRole('Gerente/Coordinadora')">
+            <span class="modal-option-icon">📋</span>
+            <span class="modal-option-text">Gerente/Coordinadora</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="step2" class="modal-step" style="display: none;">
+        <button class="modal-back" onclick="goBackToStep1()">← Atrás</button>
+        <div class="modal-header">
+          <h2>¿Qué buscas?</h2>
+          <p id="roleDisplay"></p>
+        </div>
+        <div class="modal-options">
+          <button class="modal-option" onclick="selectOption('roi')">
+            <span class="modal-option-icon">💰</span>
+            <span class="modal-option-text">Ver mi ROI potencial</span>
+          </button>
+          <button class="modal-option" onclick="selectOption('comprar')">
+            <span class="modal-option-icon">🛒</span>
+            <span class="modal-option-text">Comprar kit por mayor</span>
+          </button>
+          <button class="modal-option" onclick="selectOption('capacitar')">
+            <span class="modal-option-icon">🎓</span>
+            <span class="modal-option-text">Capacitar mis estilistas</span>
+          </button>
+          <button class="modal-option" onclick="selectOption('dudas')">
+            <span class="modal-option-icon">❓</span>
+            <span class="modal-option-text">Dudas técnicas</span>
+          </button>
+          <button class="modal-option" onclick="selectOption('empezar')">
+            <span class="modal-option-icon">🚀</span>
+            <span class="modal-option-text">Empezar de cero</span>
+          </button>
+        </div>
+        <div class="modal-recommendation" id="roiRecommendation">
+          <p>🎯 Te recomendamos revisar nuestra <strong>calculadora interactiva</strong> primero para ver tu ROI potencial personalizado.</p>
+          <button class="modal-recommendation-btn" onclick="goToCalculator()">Ver Calculadora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- STICKY BUTTON -->
   <div class="sticky-contact" id="stickyContact">
-    <a href="https://wa.me/56949238584" class="button-adhara sticky-btn">
+    <button onclick="openWhatsappModal()" class="button-adhara sticky-btn" style="border: none; cursor: pointer;">
       <span style="display: block; text-align: center;">Hablar con Profesional</span>
       <span class="sticky-subtitle" style="display: block; text-align: center;">90% sigue usando formol, marca la diferencia</span>
-    </a>
+    </button>
   </div>
 
   <!-- FOOTER -->
@@ -1189,6 +1459,59 @@
   </footer>
 
   <script>
+    // WHATSAPP MODAL VARIABLES
+    let selectedRole = null;
+
+    function openWhatsappModal() {
+      document.getElementById('whatsappModal').classList.add('active');
+    }
+
+    function closeWhatsappModal() {
+      document.getElementById('whatsappModal').classList.remove('active');
+      document.getElementById('step1').style.display = 'block';
+      document.getElementById('step2').style.display = 'none';
+      document.querySelector('.modal-back').classList.remove('active');
+      selectedRole = null;
+    }
+
+    function selectRole(role) {
+      selectedRole = role;
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+      document.getElementById('roleDisplay').textContent = `Eres ${role}`;
+      document.querySelector('.modal-back').classList.add('active');
+    }
+
+    function goBackToStep1() {
+      document.getElementById('step1').style.display = 'block';
+      document.getElementById('step2').style.display = 'none';
+      document.querySelector('.modal-back').classList.remove('active');
+      selectedRole = null;
+    }
+
+    function selectOption(option) {
+      const messages = {
+        comprar: `Hola 👋 Soy ${selectedRole} y quiero comprar el kit Adhara por mayor. ¿Cuál es el proceso y los precios?`,
+        capacitar: `Hola 👋 Soy ${selectedRole} y quiero capacitar a mis estilistas con Adhara. ¿Qué incluye?`,
+        dudas: `Hola 👋 Soy ${selectedRole} y tengo dudas técnicas sobre Adhara. ¿Me asesoran?`,
+        empezar: `Hola 👋 Soy ${selectedRole} y es mi primera vez con Adhara. ¿Por dónde empiezo?`
+      };
+
+      if (option === 'roi') {
+        document.getElementById('roiRecommendation').classList.add('active');
+      } else {
+        const message = messages[option];
+        const whatsappLink = `https://wa.me/56941077636?text=${encodeURIComponent(message)}`;
+        closeWhatsappModal();
+        window.open(whatsappLink, '_blank');
+      }
+    }
+
+    function goToCalculator() {
+      closeWhatsappModal();
+      document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+    }
+
     // Navbar Scroll Effect
     window.addEventListener('scroll', () => {
       const nav = document.querySelector('nav');
