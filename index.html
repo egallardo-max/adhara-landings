@@ -8,6 +8,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700;800;900&family=Rubik+Mono+One&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- META PIXEL B2B ADHARA -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1223589338839521');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1223589338839521&ev=PageView&noscript=1"
+  /></noscript>
+
   <style>
     :root {
       --bg: #FDFAF5;
@@ -733,7 +750,7 @@
           <button onclick="openWhatsappModal()" class="hero-button hero-button-secondary" style="border: none; cursor: pointer; text-decoration: none;">
             Hablar con profesional
           </button>
-          <a href="https://somosadhara.cl" class="hero-button hero-button-dark">
+          <a href="https://www.somosadhara.cl/collections/kits/products/kit-alisado-professional-1litro" class="hero-button hero-button-dark" onclick="fbq('track', 'ViewContent', {content_name: 'kit_alisado', value: 194990, currency: 'CLP'});">
             Comprar inmediata
             <span style="font-size: 16px;">→</span>
           </a>
@@ -944,7 +961,7 @@
           <button onclick="openWhatsappModal()" style="background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%); color: white; border: none; border-radius: 50px; padding: 14px 24px; font-weight: 700; font-size: 14px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
             Quiero este margen →
           </button>
-          <a href="https://somosadhara.cl" style="background: var(--dark); color: white; border: none; border-radius: 50px; padding: 14px 24px; font-weight: 700; font-size: 14px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none;">
+          <a href="https://www.somosadhara.cl/collections/kits/products/kit-alisado-professional-1litro" style="background: var(--dark); color: white; border: none; border-radius: 50px; padding: 14px 24px; font-weight: 700; font-size: 14px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none;" onclick="fbq('track', 'ViewContent', {content_name: 'kit_alisado', value: 194990, currency: 'CLP'});">
             Comprar ahora
           </a>
         </div>
@@ -1502,6 +1519,16 @@
       } else {
         const message = messages[option];
         const whatsappLink = `https://wa.me/56941077636?text=${encodeURIComponent(message)}`;
+
+        // 📍 META PIXEL EVENT - CONTACT (CONVERSIÓN)
+        fbq('track', 'Contact', {
+          content_name: `contact_${option}`,
+          user_role: selectedRole,
+          intention: option,
+          value: 1,
+          currency: 'CLP'
+        });
+
         closeWhatsappModal();
         window.open(whatsappLink, '_blank');
       }
