@@ -1766,6 +1766,8 @@
   <script>
     // EXIT POPUP VARIABLES
     let exitPopupShown = false;
+    let timeoutId = null;
+    let userInteracted = false;
 
     function showExitPopup() {
       if (!exitPopupShown) {
@@ -1778,15 +1780,57 @@
       document.getElementById('exitPopup').classList.remove('active');
     }
 
-    // EXIT INTENT: Detectar cuando usuario intenta irse
+    // TRIGGER 1: EXIT INTENT - Desktop (mouseleave)
     document.addEventListener('mouseleave', () => {
       showExitPopup();
     });
 
-    // EXIT INTENT: Detectar cuando presiona ESC
+    // TRIGGER 2: EXIT INTENT - ESC key (desktop)
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         showExitPopup();
+      }
+    });
+
+    // TRIGGER 3: Mobile - Cuando cierra el modal de WhatsApp (pincha X)
+    const originalCloseExitPopup = closeExitPopup;
+    window.closeWhatsappModal = function() {
+      // Cierra modal de preguntas
+      document.getElementById('whatsappModal').classList.remove('active');
+      document.getElementById('step1').style.display = 'block';
+      document.getElementById('step2').style.display = 'none';
+      document.querySelector('.modal-back').classList.remove('active');
+      selectedRole = null;
+
+      // Muestra popup de grupo después de cerrar
+      setTimeout(() => {
+        showExitPopup();
+      }, 300);
+    };
+
+    // TRIGGER 4: Mobile - Cuando presiona atrás en navegador
+    window.addEventListener('popstate', () => {
+      showExitPopup();
+    });
+
+    // TRIGGER 5: Mobile - Timeout (45 segundos viendo la landing sin interactuar)
+    window.addEventListener('load', () => {
+      // Inicia timeout de 45 segundos
+      timeoutId = setTimeout(() => {
+        if (!userInteracted && !exitPopupShown) {
+          showExitPopup();
+        }
+      }, 45000); // 45 segundos
+    });
+
+    // Cancelar timeout si hace click en "Hablar con Soporte" o "Hablar con Profesional"
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('btn-gold') ||
+          e.target.classList.contains('btn-dark') ||
+          e.target.classList.contains('hero-button-secondary') ||
+          e.target.closest('[onclick*="openWhatsappModal"]')) {
+        userInteracted = true;
+        clearTimeout(timeoutId);
       }
     });
 
