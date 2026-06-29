@@ -1157,8 +1157,8 @@
           <!-- Costo por servicio -->
           <div style="background: white; border-radius: 16px; padding: 20px; border: 1px solid rgba(201,168,76,0.12);">
             <div class="text-xs font-bold tracking-widest uppercase mb-2" style="color: var(--gold); letter-spacing: 1px;">Costo por servicio</div>
-            <div class="text-2xl font-black mb-2" style="color: var(--dark);">$6.825</div>
-            <div class="text-xs" style="color: var(--muted);">Litro · 20 alisados</div>
+            <div class="text-2xl font-black mb-2" style="color: var(--dark);">$9.749</div>
+            <div class="text-xs" style="color: var(--muted);">Litro $194.990 · 20 alisados</div>
           </div>
 
           <!-- Tu ganancia -->
@@ -1903,7 +1903,7 @@
     function updateCalculator() {
       const slider = document.getElementById('priceSlider');
       const precio = parseInt(slider.value);
-      const costoServicio = 6825;
+      const costoServicio = 9749; // Kit $194.990 ÷ 20 alisados
       const ganancia = precio - costoServicio;
       const margenPct = Math.round((ganancia / precio) * 100);
       const revenuePerLiter = ganancia * 20;
