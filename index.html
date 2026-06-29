@@ -700,6 +700,239 @@
         font-size: 20px;
       }
     }
+
+    /* EXIT INTENT POPUP */
+    .exit-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(26, 18, 8, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      backdrop-filter: blur(5px);
+      animation: fadeInUp 0.4s ease-out;
+    }
+
+    .exit-popup-overlay.active {
+      display: flex;
+    }
+
+    .exit-popup-modal {
+      background: linear-gradient(135deg, #ffffff 0%, #fafaf8 100%);
+      border-radius: 24px;
+      padding: 0;
+      max-width: 520px;
+      width: 90%;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35),
+                  0 0 0 1px rgba(201, 168, 76, 0.15);
+      position: relative;
+      animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .exit-popup-decoration {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+      background-size: 200%;
+      animation: grad-travel 3s linear infinite;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .exit-popup-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-2);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .exit-popup-close:hover {
+      color: var(--gold);
+      transform: scale(1.2);
+    }
+
+    .exit-popup-content {
+      text-align: center;
+      padding: 48px 40px 40px 40px;
+    }
+
+    .exit-popup-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.15) 0%, rgba(201, 168, 76, 0.05) 100%);
+      color: var(--gold-dark);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .exit-popup-content h2 {
+      font-size: 32px;
+      color: var(--dark);
+      margin: 0 0 16px 0;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    .exit-popup-icon {
+      font-size: 56px;
+      margin: 16px 0 24px 0;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .exit-popup-main {
+      font-size: 18px;
+      color: var(--dark);
+      font-weight: 700;
+      margin: 0 0 8px 0;
+      line-height: 1.5;
+    }
+
+    .exit-popup-main strong {
+      color: var(--gold-dark);
+      font-weight: 900;
+    }
+
+    .exit-popup-sub {
+      font-size: 14px;
+      color: var(--text-2);
+      margin: 0 0 28px 0;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .exit-popup-benefits {
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.08) 0%, rgba(201, 168, 76, 0.02) 100%);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 28px;
+      border: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .benefit-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .benefit-icon {
+      font-size: 16px;
+      min-width: 24px;
+    }
+
+    .exit-popup-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .exit-popup-btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+      color: white;
+      padding: 18px 40px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none;
+      display: block;
+      width: 100%;
+      box-shadow: 0 12px 32px rgba(201, 168, 76, 0.28);
+      letter-spacing: 0.5px;
+    }
+
+    .exit-popup-btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(201, 168, 76, 0.42);
+      background: linear-gradient(135deg, #d4b456 0%, #b39540 100%);
+    }
+
+    .exit-popup-btn-secondary {
+      background: transparent;
+      color: var(--text-2);
+      padding: 14px 32px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: block;
+      width: 100%;
+    }
+
+    .exit-popup-btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold-dark);
+      background: rgba(201, 168, 76, 0.08);
+    }
+
+    @media (max-width: 768px) {
+      .exit-popup-modal {
+        padding: 36px 24px;
+      }
+
+      .exit-popup-content h2 {
+        font-size: 24px;
+      }
+
+      .exit-popup-main {
+        font-size: 15px;
+      }
+
+      .exit-popup-sub {
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1461,6 +1694,61 @@
     </div>
   </div>
 
+  <!-- EXIT INTENT POPUP - GRUPO PRIVADO -->
+  <div class="exit-popup-overlay" id="exitPopup">
+    <div class="exit-popup-modal">
+      <button class="exit-popup-close" onclick="closeExitPopup()">✕</button>
+
+      <!-- Decoración superior -->
+      <div class="exit-popup-decoration"></div>
+
+      <div class="exit-popup-content">
+        <!-- Badge Exclusivo -->
+        <div class="exit-popup-badge">✨ ACCESO EXCLUSIVO ✨</div>
+
+        <h2>¡Espera, no te vayas!</h2>
+
+        <div class="exit-popup-icon">👑</div>
+
+        <p class="exit-popup-main">
+          Únete al círculo privado de<br>
+          <strong>Estilistas Profesionales</strong>
+        </p>
+
+        <p class="exit-popup-sub">
+          Que lideran su mercado con resultados premium
+        </p>
+
+        <!-- Beneficios listados -->
+        <div class="exit-popup-benefits">
+          <div class="benefit-item">
+            <span class="benefit-icon">✨</span>
+            <span>Técnicas exclusivas sin químicos</span>
+          </div>
+          <div class="benefit-item">
+            <span class="benefit-icon">📊</span>
+            <span>Resultados reales comprobados</span>
+          </div>
+          <div class="benefit-item">
+            <span class="benefit-icon">🎓</span>
+            <span>Tratamientos avanzados premium</span>
+          </div>
+        </div>
+
+        <div class="exit-popup-buttons">
+          <a href="https://chat.whatsapp.com/Kd3SmFGKxkF5La5W3QZHAz"
+             class="exit-popup-btn-primary"
+             target="_blank">
+            ✓ Sumarme al grupo privado
+          </a>
+          <button class="exit-popup-btn-secondary" onclick="closeExitPopup()">
+            Ahora no
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- STICKY BUTTON -->
   <div class="sticky-contact" id="stickyContact">
     <button onclick="openWhatsappModal()" class="button-adhara sticky-btn" style="border: none; cursor: pointer;">
@@ -1476,6 +1764,39 @@
   </footer>
 
   <script>
+    // EXIT POPUP VARIABLES
+    let exitPopupShown = false;
+
+    function showExitPopup() {
+      if (!exitPopupShown) {
+        document.getElementById('exitPopup').classList.add('active');
+        exitPopupShown = true;
+      }
+    }
+
+    function closeExitPopup() {
+      document.getElementById('exitPopup').classList.remove('active');
+    }
+
+    // EXIT INTENT: Detectar cuando usuario intenta irse
+    document.addEventListener('mouseleave', () => {
+      showExitPopup();
+    });
+
+    // EXIT INTENT: Detectar cuando presiona ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        showExitPopup();
+      }
+    });
+
+    // Cerrar popup si hace click fuera
+    document.getElementById('exitPopup').addEventListener('click', (e) => {
+      if (e.target.id === 'exitPopup') {
+        closeExitPopup();
+      }
+    });
+
     // WHATSAPP MODAL VARIABLES
     let selectedRole = null;
 
